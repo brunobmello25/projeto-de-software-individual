@@ -1,25 +1,54 @@
 @startuml
 
-actor at as "Atendente"
-participant sist as "Sistema"
-participant banco as "Banco de Dados"
+actor "Atendente" as A
+actor "Sistema" as S
+participant "Banco: Leitor" as L
+participant "Banco: CopiaDoLivro" as C
+participant "Banco: LinhaDoEmprestimo" as LE
 
-at->sist: Registra novo LinhaDoEmprestimo
+A -> S : emprestarLivro(id_Livro)
+activate S
 
-sist->banco: Registra novo LinhaDoEmprestimo
+S --> L : identificarLeitor()
+activate L
+L --> S : leitorIdentificado()
+deactivate L
 
-sist->banco: Busca uma copia do livro com situação diferente de "Emprestada" e com o id fornecido
-banco->sist: Retorna copia do livro com o id
+S -> C : verificarDisponibilidade()
+activate C
+C --> S : livroDisponivel()
+deactivate C
 
-sist->banco: Associa cópia do livro com o id ao LinhaDoEmprestimo
+S -> LE : criarLinhaDoEmprestimo()
+activate LE
+LE --> S : linhaCriada()
+deactivate LE
 
-sist->banco: Atualiza status da cópia do livro para "Emprestada"
+S -> LE : associarAoLeitorEACopia()
+activate LE
+LE --> S : associacaoConcluida()
+deactivate LE
 
-sist->banco: Atualiza data de devolução da LinhaDoEmprestimo
+S -> C : alterarSituacao("emprestada")
+activate C
+C --> S : situacaoAlterada()
+deactivate C
 
-banco->sist: Retorna LinhaDoEmprestimo com a nova data de devolução
+S -> LE : calcularDataDevolucao()
+activate LE
+LE --> S : dataCalculada(data)
+deactivate LE
 
-sist->at: Retorna mensagem de sucesso de empréstimo com a data de devolução informada
+S -> LE : armaazenarDataDevolucao()
+activate LE
+LE --> S : dataArmazenada()
+deactivate LE
+
+S --> L : informarDataDevolucao(data)
+activate L
+L --> S : confirmacaoRecebida()
+deactivate L
+
+deactivate S
 
 @enduml
-

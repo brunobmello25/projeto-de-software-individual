@@ -1,0 +1,25 @@
+@startuml
+
+actor at as "Atendente"
+participant sist as "Sistema"
+participant banco as "Banco de Dados"
+
+at->sist: Registra novo LinhaDoEmprestimo
+
+sist->banco: Registra novo LinhaDoEmprestimo
+
+sist->banco: Busca uma copia do livro com situação diferente de "Emprestada" e com o id fornecido
+banco->sist: Retorna copia do livro com o id
+
+sist->banco: Associa cópia do livro com o id ao LinhaDoEmprestimo
+
+sist->banco: Atualiza status da cópia do livro para "Emprestada"
+
+sist->banco: Atualiza data de devolução da LinhaDoEmprestimo
+
+banco->sist: Retorna LinhaDoEmprestimo com a nova data de devolução
+
+sist->at: Retorna mensagem de sucesso de empréstimo com a data de devolução informada
+
+@enduml
+
