@@ -39,16 +39,12 @@ activate LE
 LE --> S : dataCalculada(data)
 deactivate LE
 
-S -> LE : armaazenarDataDevolucao()
+S -> LE : armazenarDataDevolucao()
 activate LE
 LE --> S : dataArmazenada()
 deactivate LE
 
-S --> L : informarDataDevolucao(data)
-activate L
-L --> S : confirmacaoRecebida()
-deactivate L
-
+S --> A : informaDataDevolucao()
 deactivate S
 
 @enduml

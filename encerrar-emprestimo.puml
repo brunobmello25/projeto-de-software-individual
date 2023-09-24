@@ -5,7 +5,7 @@ actor "Sistema" as S
 participant "Banco: Emprestimo/Devolucao" as ED
 participant "Banco: LinhaDoEmprestimo" as LE
 
-A -> S : encerrarEmpréstimo()
+A -> S : encerrarEmprestimo()
 activate S
 
 S --> ED : verificarExistenciaEmprestimo()

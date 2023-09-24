@@ -18,8 +18,8 @@ activate ED
 ED --> S : objetoCriado()
 deactivate ED
 
-S -> ED : associarEmprestimoAoLeitor(id_leitor)
-activate ED
+S -> ED : associarEmprestimoAoLeitor()
+activate EaD
 ED --> S : associacaoConcluida()
 deactivate ED
 
