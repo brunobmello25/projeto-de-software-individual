@@ -1,0 +1,30 @@
+@startuml
+
+actor "Atendente" as A
+actor "Sistema" as S
+participant "Banco: Emprestimo/Devolucao" as ED
+participant "Banco: LinhaDoEmprestimo" as LE
+
+A -> S : encerrarEmpréstimo()
+activate S
+
+S --> ED : verificarExistenciaEmprestimo()
+activate ED
+ED --> S : emprestimoExiste()
+deactivate ED
+
+S -> LE : verificarExistenciaLinhaDoEmprestimo()
+activate LE
+LE --> S : linhaExiste()
+deactivate LE
+
+S -> ED : alterarSituacao("vigente")
+activate ED
+ED --> S : situacaoAlterada()
+deactivate ED
+
+S --> A : informarConclusaoEmprestimo()
+
+deactivate S
+
+@enduml
