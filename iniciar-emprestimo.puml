@@ -10,9 +10,9 @@ sist->banco: Busca leitor por id
 
 banco->sist: Retorna leitor
 
-sist->banco: Insere registro empréstimo associado ao leitor
+sist->banco: Insere registros empréstimo e devolução
 
-banco->sist: Retorna empréstimo
+banco->sist: Retorna registros empréstimo e devolução
 
 sist->at: Retorna mensagem de sucesso
 
