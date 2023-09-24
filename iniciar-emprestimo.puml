@@ -19,7 +19,7 @@ ED --> S : objetoCriado()
 deactivate ED
 
 S -> ED : associarEmprestimoAoLeitor()
-activate EaD
+activate ED
 ED --> S : associacaoConcluida()
 deactivate ED
 
