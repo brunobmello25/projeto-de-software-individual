@@ -1,0 +1,20 @@
+@startuml
+
+actor at as "Atendente"
+participant sist as "Sistema"
+participant banco as "Banco de Dados"
+
+at->sist: iniciarEmprestimo(id_leitor)
+
+sist->banco: Busca leitor por id
+
+banco->sist: Retorna leitor
+
+sist->banco: Insere registro empréstimo associado ao leitor
+
+banco->sist: Retorna empréstimo
+
+sist->at: Retorna mensagem de sucesso
+
+@enduml
+
