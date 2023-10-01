@@ -1,0 +1,34 @@
+@startuml
+
+note "Todas as classes tem um atributo id, Integer, único e auto incremental, ainda que omitido neste diagrama" as N1
+
+class Participant {
+  - number: Integer
+  - name : String
+  - age : Integer
+  - address : String
+
+  {static} + createParticipant(name : String, age : Integer, address : String): void
+}
+
+class Team {
+  - name : String
+
+  {static} + createTeam(name : String): void
+}
+
+class Station {
+
+}
+
+class Judge {
+   
+}
+
+class Event {}
+
+class NoteTaker {}
+
+Team "(1,1)" -- "(0,n)" Participant
+
+@enduml
