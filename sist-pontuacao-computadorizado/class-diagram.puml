@@ -1,34 +1,109 @@
 @startuml
 
-note "Todas as classes tem um atributo id, Integer, único e auto incremental, ainda que omitido neste diagrama" as N1
+title Diagrama de Classes - Sistema de Pontuação Computadorizado
 
-class Participant {
-  - number: Integer
-  - name : String
-  - age : Integer
-  - address : String
+class Address {
+  - street : String
+  - number : String
+  - complement : String
+  - zipCode : String
 
-  {static} + createParticipant(name : String, age : Integer, address : String): void
+  {static} + create() : Address
 }
 
-class Team {
-  - name : String
+class Season {
+  - startDate : Date
+  - endDate : Date
 
-  {static} + createTeam(name : String): void
+  + {static} programSeason(Date startDate, Date endDate): Season
 }
 
 class Station {
+  - name: String
+}
 
+class Tournament {
+  - date: Date
+  - type: String
+  
+  + {static} programTournament() : Tournament
+}
+
+note right of Tournament::type
+  "type" pode ser apenas "solo" por ora
+end note
+
+class NoteTaker {
+  - name: String
+}
+
+class Event {
+  - name: String
+  - startTime: DateTime
+
+  + {static} startEvent(): Event
+  + {static} endEvent(): Event
+}
+
+class Presentation {
+  - finalNote : Integer
+
+  + startPresentation(): void
+  + addJudgeNote(Judge judge) : void
+  + endPresentation(): void
+}
+
+note right of Presentation::addJudgeNote
+  "JudgeNote" representa a nota bruta dada pelo juiz antes de ser calculada a nota final,
+  registrada em "finalNote" na classe "Presentation"
+end note
+
+class Participant {
+  - name: String
+  - age: Integer
 }
 
 class Judge {
-   
+  - name: String
 }
 
-class Event {}
+class JudgePresentationNote {
+  - note : Integer
+}
 
-class NoteTaker {}
+class Team {
+  - name: String
 
-Team "(1,1)" -- "(0,n)" Participant
+  + {static} searchByName(String name) : Team
+}
+
+Address "1" -- "(0,n)" Tournament
+
+Season "1" -- "(1,n)" Tournament
+
+Address "1" -- "1" Station
+
+Tournament "1" -- "(1,n)" Station
+
+Tournament "1" -- "(1,n)" Event
+
+Station "(1,n)" -- "(1,n)" NoteTaker
+
+Station "(1,n)" -- "(1,n)" Event
+
+Station "(1,n)" -- "(1,n)" Judge
+
+Event "(0,n)" -- "1" Presentation
+
+Judge "(0,n)" -- "1" JudgePresentationNote
+
+JudgePresentationNote "1" -- "(0,n)" Presentation
+
+Presentation "(0,n)" -- "1" Participant
+
+Participant "1" -- "(1,n)" Team
+
+Participant "1" -- "(1,n)" Address
 
 @enduml
+
